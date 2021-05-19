@@ -1,5 +1,5 @@
 function seed() {
-  let arr = new Array(arguments);
+  let arr = Array.prototype.slice.call(arguments);
 
 }
 
