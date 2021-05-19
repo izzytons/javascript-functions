@@ -46,7 +46,9 @@ const printCells = (state) => {
 
 };
 
-const getNeighborsOf = ([x, y]) => { };
+const getNeighborsOf = ([x, y]) => {
+
+};
 
 const getLivingNeighbors = (cell, state) => { };
 
