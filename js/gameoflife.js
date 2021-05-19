@@ -4,7 +4,7 @@ function seed() {
 }
 
 function same([x, y], [j, k]) {
-  x === j && y === k ? true : false;
+  return x === j && y === k;
 }
 
 // The game state to search for `cell` is passed as the `this` value of the function.
@@ -13,50 +13,42 @@ function contains(cell) {
 }
 
 const printCell = (cell, state) => {
-  if (state.contains.call(cell)) {
-    return ('\u25A3');
-  } else {
-    return ('\u25A2');
+  const { bottomLeft, topRight } = corners(state);
+  let accumulator = "";
+  for (let y = topRight[1]; y >= bottomLeft[1]; y--) {
+    let row = [];
+    for (let x = bottomLeft[0]; x <= topRight[0]; x++) {
+      row.push(printCell([x, y], state));
+    }
+    accumulator += row.join(" ") + "\n";
   }
+  return accumulator;
 };
 
 const corners = (state = []) => {
 
-  let lowest_column, highest_column = state[0][0];
-  let lowest_row, highest_row = state[0][1];
-
-  state.forEach(cell => {
-    if (cell[0] < lowest_column) {
-      lowest_column = cell[0];
-    }
-    if (cell[0] > highest_column) {
-      highest_column = cell[0];
-    }
-    if (cell[1] < lowest_row) {
-      lowest_row = cell[1];
-    }
-    if (cell[1] > highest_row) {
-      highest_row = cell[1];
-    }
-  });
-
-  let highest = [highest_column, highest_row];
-  let lowest = [lowest_column, lowest_row];
-
-  let result = {
-    topRight: highest,
-    bottomLeft: lowest
+  if (state.length === 0) {
+    return {
+      topRight: [0, 0],
+      bottomLeft: [0, 0]
+    };
   }
 
-  return result;
+  const xs = state.map((x, _]) => x);
+const ys = state.map((_, y]) => y);
+
+return {
+  topRight: [Math.max(...xs), Math.max(...ys)],
+  bottomLeft: [Math.min(...xs), Math.min(...ys)]
+};
 };
 
 const printCells = (state) => {
   console.log(this, state);
   let bottom_row = parseInt(corners(state).bottomLeft[1]);
   let top_row = parseInt(corners(state).topRight[1]);
-  for (var i = bottom_row, i <top_row, i++) {
-    
+  for (var i = bottom_row, i < parseInt(top_row), i++) {
+
   }
   printCell(corners(state).bottomLeft);
 
