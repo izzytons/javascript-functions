@@ -53,6 +53,13 @@ const corners = (state = []) => {
 
 const printCells = (state) => {
   console.log(this, state);
+  let bottom_row = parseInt(corners(state).bottomLeft[1]);
+  let top_row = parseInt(corners(state).topRight[1]);
+  for (var i = bottom_row, i <top_row, i++) {
+    
+  }
+  printCell(corners(state).bottomLeft);
+
 
 };
 
