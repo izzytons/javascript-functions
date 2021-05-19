@@ -21,19 +21,27 @@ const printCell = (cell, state) => {
 };
 
 const corners = (state = []) => {
-  //iterate through to find the lowest values for bottomLeft and highest values for topRight
-  let lowest = state[0];
-  let highest = state[0];
+
+  let lowest_column, highest_column = state[0][0];
+  let lowest_row, highest_row = state[0][1];
+
   state.forEach(cell => {
-    if (cell[0] < lowest[0] && cell[1] <= lowest[1]) {
-      //found new bottom left cell
-      lowest = cell;
+    if (cell[0] < lowest_column) {
+      lowest_column = cell[0];
     }
-    if (cell[0] > highest[0] && cell[1] >= highest[1]) {
-      //found new top right cell
-      highest = cell;
+    if (cell[0] > highest_column) {
+      highest_column = cell[0];
+    }
+    if (cell[1] < lowest_row) {
+      lowest_row = cell[1];
+    }
+    if (cell[1] > highest_row) {
+      highest_row = cell[1];
     }
   });
+
+  let highest = [highest_column, highest_row];
+  let lowest = [lowest_column, lowest_row];
 
   let result = {
     topRight: highest,
@@ -45,7 +53,7 @@ const corners = (state = []) => {
 
 const printCells = (state) => {
   console.log(this, state);
-  
+
 };
 
 const getNeighborsOf = ([x, y]) => { };
